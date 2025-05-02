@@ -2,7 +2,6 @@ export const waterData = [
   {
     id: 1,
     sana: "20-may 2024 yil, 9-30",
-
     chuqurlik: 18.5,
     pH: 6.7,
     tC: 15.0,
@@ -12,7 +11,6 @@ export const waterData = [
   {
     id: 2,
     sana: "20-may 2024 yil, 15-30",
-
     chuqurlik: 18.56,
     pH: 6.68,
     tC: 15.03,
@@ -22,7 +20,6 @@ export const waterData = [
   {
     id: 3,
     sana: "20-may 2024 yil, 21-30",
-
     chuqurlik: 18.7,
     pH: 6.68,
     tC: 15.02,
@@ -153,7 +150,7 @@ export const waterData = [
     id: 16,
     sana: "24-may 2024 yil, 2-30",
 
-    chuqurlik: 19.90,
+    chuqurlik: 19.9,
     pH: 6.54,
     tC: 15.05,
     eh: 4.26,
