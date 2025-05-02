@@ -1,333 +1,209 @@
-import Header from "@/components/header/Header";
-import { Button } from "@/components/ui/button";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Autoplay, Navigation } from "swiper/modules";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { CityDataProps } from "@/types";
+import CustomProgressBar from "@/components/CustomProgressBar";
+import { waterData } from "@/data";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-const data = [
+const columns = [
   {
-    id: 1,
-    title: "Tabiat",
-    description:
-      "Xushmanzara tog‘lar, gullagan vodiylar, jazirama cho‘llar, daryolar va zilol ko‘llar - bu go‘zallikning barchasidan O‘zbekistonda bahramand bo‘lishingiz mumkin!",
-    link: "/nature",
-    image: "/src/assets/images/hero1.webp",
+    title: "№",
+    dataIndex: "id",
+    key: "id",
+    width: "",
   },
   {
-    id: 2,
-    title: "O'zbek taomlari",
-    description:
-      "Xushbo‘y palov, ishtahani qo‘zg‘atadigan qozon kabob, somsa, yopgan non va sho‘rva – o‘z rang-barangligi va betakror ta’mi bilan O‘zbekiston aholisi va mehmonlarining hayratga soladi.",
-    link: "/food",
-    image: "/src/assets/images/hero2.webp",
+    title: "O'lchangan vaqti",
+    dataIndex: "sana",
+    key: "sana",
+    render: (text: string) => <a>{text}</a>,
+    width: "15%",
   },
   {
-    id: 3,
-    title: "Madaniy meros",
-    description:
-      "O‘zbekiston madaniyati, Markaziy Osiyo xalqlarining ko‘p asrlik an’analari va turmush tarzi bilan chambarchas bog‘liq boy tarixga ega",
-    link: "/culture",
-    image: "/src/assets/images/hero3.webp",
+    title: "Suv sathi, (sm)",
+    dataIndex: "chuqurlik",
+    key: "chuqurlik",
   },
   {
-    id: 4,
-    title: "Xalq san'ati",
-    description:
-      "Noyob naqshlar bilan burkangan O‘zbekiston amaliy san’ati asarlarining mazmuni va ahamiyati ko‘p asrlar davomida rivojlanib kelgan",
-    link: "/art",
-    image: "/src/assets/images/hero4.webp",
+    title: <p>Temperatura, (0&#176;C)</p>,
+    dataIndex: "tC",
+    key: "tC",
   },
   {
-    id: 5,
-    title: "Me’morchlik",
-    description:
-      "Moviy rang naqshlar va rang-barang rasmlar bilan bezatilgan ulug‘vor me’moriy ansambllar, saroylar, masjidlar va minoralar O‘zbekistonga tashrif buyuruvchi millionlab mehmonlarni ko‘p asrlar davomida hayratga solib kelmoqda.",
-    link: "/architecture",
-    image: "/src/assets/images/hero5.webp",
-  },
-];
-
-//   {
-//     id: 1,
-//     title: "Toshkent",
-//     description: "Zamonaviy megapolis",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/677/7d4/547/thumb_4157_600_0_0_0_auto.jpeg",
-//   },
-//   {
-//     id: 2,
-//     title: "Samarqand",
-//     description: "Madaniyatlar chorrahasi",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/677/7d3/957/thumb_4156_600_0_0_0_auto.png",
-//   },
-//   {
-//     id: 3,
-//     title: "Buxoro",
-//     description: "Islom madaniyatining poytaxti",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/671/74c/365/thumb_3943_600_0_0_0_auto.jpg",
-//   },
-//   {
-//     id: 4,
-//     title: "Xiva",
-//     description: "Turk dunyosini poytaxti",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/676/a5f/65e/thumb_4123_600_0_0_0_auto.jpg",
-//   },
-//   {
-//     id: 5,
-//     title: "Shahrisabz",
-//     description: "Amir Temur vatani",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/670/e08/ea9/thumb_3928_600_0_0_0_auto.jpg",
-//   },
-//   {
-//     id: 6,
-//     title: "Mo'ynoq",
-//     description: "Orol sahrosi",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/670/e09/78d/thumb_3929_600_0_0_0_auto.jpg",
-//   },
-//   {
-//     id: 7,
-//     title: "Zomin",
-//     description: "O'zbek Shvetsariyasi",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/5eb/476/f7b/thumb_774_600_0_0_0_auto.jpg",
-//   },
-//   {
-//     id: 8,
-//     title: "Termiz",
-//     description: "Qadimiy svilizatsiya va din markazi",
-//     image:
-//       "https://uzbekistan.travel/storage/app/uploads/public/668/38e/fa0/thumb_3658_600_0_0_0_auto.jpg",
-//   },
-// ];
-
-const placesData = [
-  {
-    id: 1,
-    title: "Virtual galereyalar",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/67b/6ab/4b2/thumb_4640_740_0_0_0_auto.png",
+    title: "Sho'rlanganligi, (TDS)",
+    dataIndex: "tds",
+    key: "tds",
   },
   {
-    id: 2,
-    title: "Chorsu Art-galereyalar",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/66b/9c1/00e/thumb_3802_740_0_0_0_auto.jpg",
-  },
-  {
-    id: 3,
-    title: "Toshkent fotosuratlar uyi",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/679/9f2/2fa/thumb_4391_740_0_0_0_auto.jpg",
-  },
-  {
-    id: 4,
-    title: "Qatag'on qurbonlari xotirasi muzeyi",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/67b/6ab/f4e/thumb_4645_740_0_0_0_auto.png",
-  },
-  {
-    id: 5,
-    title: "Marg'ilon hunarmandchilik markazi",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/67b/6ab/aa5/thumb_4643_740_0_0_0_auto.png",
-  },
-  {
-    id: 6,
-    title: "Mustaqillik maydoni",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/67b/6ab/6b6/thumb_4641_740_0_0_0_auto.png",
-  },
-  {
-    id: 7,
-    title: "Jahon otin Uyavsiy uy-muzeyi",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/67b/6ab/255/thumb_4639_740_0_0_0_auto.jpg",
-  },
-  {
-    id: 8,
-    title: "Yapon bog'i",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/614/078/c96/thumb_1894_740_0_0_0_auto.jpg",
-  },
-  {
-    id: 9,
-    title: "Erkin Vohidov memorial muzeyi",
-    image:
-      "https://uzbekistan.travel/storage/app/uploads/public/679/9f3/e17/thumb_4394_740_0_0_0_auto.jpg",
+    title: "Eh",
+    dataIndex: "eh",
+    key: "eh",
   },
 ];
 const Home = () => {
-  const navigate = useNavigate();
-  const [city, setCity] = useState<CityDataProps[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/cities`
-      );
-      const data = await response.json();
-      setCity(data);
-      console.log(data);
-    };
-
-    fetchData();
-  }, []);
   return (
-    <div>
-      <section>
-        <Swiper
-          modules={[Autoplay]}
-          spaceBetween={0}
-          slidesPerView={1}
-          autoplay={{
-            delay: 4000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-        >
-          {data.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div
-                style={{ backgroundImage: `url(${item.image})` }}
-                className={`bg-cover bg-center bg-no-repeat h-screen`}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-                <div className="relative z-10 ">
-                  <Header />
-                  <div className="pt-44">
-                    <div className="px-10 w-3/5">
-                      <h1 className="text-white text-7xl font-bold mb-8">
-                        {item.title}
-                      </h1>
-                      <p className="text-white text-2xl mb-16">
-                        {item.description}
-                      </p>
-                      <Button
-                        className="text-xl py-6 px-8"
-                        variant={"destructive"}
-                      >
-                        Batafsil
-                      </Button>
-                    </div>
-                  </div>
+    <div className="py-4 px-10">
+      <div className="flex justify-between items-center w-full flex-wrap mb-10 gap-3">
+        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
+          <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
+            Temperatura
+          </h3>
+          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
+          <CustomProgressBar color="#6BB2D7FF" progress={50} />
+        </div>
+        <div className="flex-auto shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg pt-4">
+          <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
+            Suv sathi
+          </h3>
+          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
+          <CustomProgressBar color="#00FF00FF" progress={90.3} />
+        </div>
+        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
+          <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
+            Sho'rlanganligi
+          </h3>
+          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
+          <CustomProgressBar color="#82A6F6FF" progress={45.5} />
+        </div>
+        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
+          <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
+            Ishqor miqdori
+          </h3>
+          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
+          <CustomProgressBar color="#6A9308FF" progress={67.0} />
+        </div>
+      </div>
+      <div className="h-[calc(100vh-5rem)] flex gap-3">
+        <div className="scrollbar-custom sm:w-[65%] w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 border rounded-[15px] shadow-lg">
+          <Table className="rounded-b-[15px] border-collapse min-w-max border-spacing-0 overflow-hidden shadow-sm p-4">
+            <TableHeader className="bg-bgDark">
+              <TableRow className="shadow-2xl">
+                {columns.map((column) => (
+                  <TableHead className="text-center" key={column.key}>
+                    {column.title}
+                  </TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {waterData.map((item, index) => (
+                <TableRow
+                  className="bg-[#fff] hover:bg-[#F5F6FA]"
+                  key={item.id}
+                >
+                  <TableCell className="font-medium border-b border-[#E4E6EE] pl-6">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className="border-b border-[#E4E6EE]">
+                    {item.sana}
+                  </TableCell>
+                  <TableCell className="border-b border-[#E4E6EE]">
+                    {item.chuqurlik}
+                  </TableCell>
+                  <TableCell className="border-b border-[#E4E6EE]">
+                    {item.tC}
+                  </TableCell>
+                  <TableCell className="border-b border-[#E4E6EE]">
+                    {item.tds}
+                  </TableCell>
+                  <TableCell className="border-b border-[#E4E6EE]">
+                    {item.eh}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        <div className="sm:w-[35%] w-full h-full flex flex-col gap-2 shadow-lg border rounded-[15px] bg-white">
+          <div>
+            <h2 className="text-[#333] font-semibold text-lg text-center py-3 border-b-[1px] border-[#b3b3b3]">
+              Qurilma tafsilotlari
+            </h2>
+            <div className="py-1 px-3 border-b-[1px] border-[#b3b3b3]">
+              <div className="flex justify-between text-[#5c5c5c] py-1">
+                <p>Holati:</p>
+                <div className="flex items-center gap-1">
+                  <span className="inline-block w-[15px] h-[15px] rounded-full bg-[#f63030]"></span>
+                  <p className="uppercase text-[#f63030]">OFFLINE</p>
                 </div>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
-      <section className="text-center bg-white py-20 px-32">
-        <h1 className="text-[2.6rem] font-medium mb-10">
-          O‘zbekistonni o‘zingiz uchun kashf eting!!
-        </h1>
-        <h4 className="text-[26px] leading-normal text-[#222] italic mb-7">
-          O‘zbekiston Sharqning sirli mamlakatidir. U yerda tarixlar afsonalarda
-          to‘plangan, quyosh yil bo‘yi porlab, tabiatning betakrorligi va
-          odamlarning yuraklari tozaligi buning nishonasidir
-        </h4>
-        <p className="text-[21px] text-[#919193] mb-5 ">
-          Ushbu muborak zaminga kelgan har bir mehmon xursandchilik bilan kutib
-          olinadi va bir marta tashrif buyurgan kishi yana qaytib kelishni
-          xohlaydi.
-        </p>
-        <Button
-          onClick={() => navigate("/uzbekistan")}
-          className="text-xl py-6 px-8"
-          variant={"destructive"}
-        >
-          Batafsil
-        </Button>
-      </section>
-      <section className="categorySlider px-10">
-        <h1 className="text-#1F2937 text-[2.5rem] sm:font-medium font-medium">
-          Eng yaxshi joylar
-        </h1>
-        <Swiper
-          spaceBetween={20}
-          grabCursor={true}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Autoplay, Navigation]}
-          slidesPerView={1}
-          navigation={true}
-          loop={true}
-          className="mt-5 sm:mt-0 rounded-2xl"
-        >
-          {placesData.map((item) => {
-            return (
-              <SwiperSlide
-                className="relative !h-72 rounded-2xl overflow-hidden shadow-lg group cursor-pointer"
-                key={item.id}
-              >
-                <img
-                  src={`${item.image}`}
-                  alt={item.title}
-                  className="w-full h-full object-cover transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/50"></div>
-
-                <div className="absolute bottom-6 left-8 text-white w-full text-2xl font-medium z-10">
-                  <h2>{item.title}</h2>
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </section>
-      <section className="px-10 py-28">
-        <h1 className="text-[2.5rem] font-medium mb-3">
-          O'zbekiston shaharlari
-        </h1>
-        <p className="text-[#6B7280] text-xl mb-8">
-          Sayyohlar uchun mashhur yo'nalish
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {city?.map((city, index) => (
-            <div
-              onClick={() => navigate(`/city/${city._id}`)}
-              key={index}
-              className="relative h-80 rounded-2xl overflow-hidden shadow-lg group cursor-pointer"
-            >
-              <img
-                src={`${import.meta.env.VITE_API_URL}/${city.heroImg}`}
-                alt={city.cityName}
-                className="w-full h-full object-cover transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/30"></div>
-
-              <div className="absolute bottom-4 text-white w-full text-2xl font-semibold z-10 flex flex-col gap-0 items-center">
-                <h2>{city.cityName}</h2>
-                <p className="text-[#E5E7EB] text-base rounded-xl text-center">
-                  {city.desc}
-                </p>
+              <div className="flex justify-between text-[#5c5c5c] py-1">
+                <p>Nomi:</p>
+                <p className="">Donyorshayx N16, 9арж</p>
+              </div>
+              <div className="flex justify-between text-[#5c5c5c] py-1">
+                <p>Telefon:</p>
+                <p className="">+998(91) 788-17-77</p>
+              </div>
+              <div className="flex justify-between text-[#5c5c5c] py-1">
+                <p>Kadastr raqami:</p>
+                <p className="">1710137</p>
+              </div>
+              <div className="flex justify-between text-[#5c5c5c] py-1">
+                <p>Chuqurlik sensori:</p>
+                <p className="">11.65</p>
               </div>
             </div>
-          ))}
+            <div className="px-3 border-b-[1px] border-[#b3b3b3]">
+              <div className="flex justify-between text-[#5c5c5c] py-1">
+                <p>Ma'lumotlar yangilanishi:</p>
+                <p className="">Holatga qarab</p>
+              </div>
+            </div>
+            <div className="px-3">
+              <div className="py-1 flex justify-between text-[#5c5c5c]">
+                <p>Dastur nomi:</p>
+                <p className="">
+                  Gidrogeokimyoviy parametrlarini o‘lchov qurilmasi
+                </p>
+              </div>
+              <div className="py-1 flex justify-between text-[#5c5c5c]">
+                <p>Dastur versiyasi:</p>
+                <p className="">5.6.12</p>
+              </div>
+            </div>
+          </div>
+          <div
+            className="flex-1 rounded-lg"
+            style={{ position: "relative", overflow: "hidden" }}
+          >
+            <a
+              href="https://yandex.uz/maps?utm_medium=mapframe&utm_source=maps"
+              style={{
+                color: "#eee",
+                fontSize: 12,
+                position: "absolute",
+                top: 0,
+              }}
+            >
+              Yandex&nbsp;Xarita
+            </a>
+            <a
+              href="https://yandex.uz/maps/geo/4040491070/?ll=66.972087%2C39.177573&utm_medium=mapframe&utm_source=maps&z=14.78"
+              style={{
+                color: "#eee",
+                fontSize: 12,
+                position: "absolute",
+                top: 14,
+              }}
+            >
+              Doniyorshayx aholi punkti — Yandex&nbsp;Xarita
+            </a>
+            <iframe
+              src="https://yandex.uz/map-widget/v1/?ll=66.972087%2C39.177573&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgo0MDQwNDkxMDcwEktPyrt6YmVraXN0b24sIFFhc2hxYWRhcnlvIHZpbG95YXRpLCBLaXRvYiB0dW1hbmksIERvbml5b3JzaGF5eCBhaG9saSBwdW5rdGkiCg1t8oVCFR-3HEI%2C&z=14.78"
+              width="100%"
+              height={"100%"}
+              frameBorder={1}
+              allowFullScreen={true}
+              style={{ position: "relative" }}
+            />
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

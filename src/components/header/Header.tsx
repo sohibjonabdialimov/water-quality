@@ -1,27 +1,19 @@
-import logo from "@/assets/images/logo_w.png";
+import logo from "@/assets/images/water.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
 const Header = () => {
   const navigate = useNavigate();
   return (
     <div className="flex justify-between items-center py-4 px-10">
       <div className="cursor-pointer" onClick={() => navigate("/")}>
-        <img className="w-44" src={logo} alt="logo" />
+        <img className="w-24" src={logo} alt="logo" />
       </div>
       <div>
-        <ul className="flex gap-4 items-center text-white">
-          <li>
-            <Link to={"/tourism"}>Turizm joylari</Link>
-          </li>
-          <li>
-            <Link to={"/tourists"}>Sayohatchilar uchun ma'lumotlar</Link>
-          </li>
-          <li>
-            <Link to={"/services"}>Xizmatlar</Link>
-          </li>
-          <li>
-            <Link to={"/contact"}>Bog'lanish</Link>
-          </li>
+        <ul className="flex gap-4 items-center text-textDark">
+          <Button className="h-[45px]">
+            <Link className="text-base" to={"/login"}>Kirish</Link>
+          </Button>
         </ul>
       </div>
     </div>

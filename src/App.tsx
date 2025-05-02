@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 
@@ -10,17 +9,17 @@ import { Toaster } from "./components/ui/toaster";
 import AdminDashboard from "./pages/admin/admin-dashboard/AdminDashboard";
 
 function App() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/cities`
-      );
-      const data = await response.json();
-      console.log(data);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(
+  //       `${import.meta.env.VITE_API_URL}/api/cities`
+  //     );
+  //     const data = await response.json();
+  //     console.log(data);
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
   return (
     <>
       <AuthProvider>
