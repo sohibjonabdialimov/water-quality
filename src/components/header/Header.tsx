@@ -1,4 +1,4 @@
-import logo from "@/assets/images/water.png";
+import logo from "@/assets/images/logo_k.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className="flex justify-between items-center py-4 px-10">
       <div className="cursor-pointer" onClick={() => navigate("/")}>
-        <img className="w-24" src={logo} alt="logo" />
+        <img className="w-32" src={logo} alt="logo" />
       </div>
       <div>
         <ul className="flex gap-4 items-center text-textDark">

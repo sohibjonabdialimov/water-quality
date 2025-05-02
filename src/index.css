@@ -20,6 +20,7 @@ p{
 }
 @layer base {
   :root {
+    --main-blue: #2080FC;
     --danger: #DD2C00;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;

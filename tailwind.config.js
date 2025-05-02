@@ -13,6 +13,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+				mainBlue: 'var(--main-blue)',
   			danger: 'var(--danger)',
   			lightColor: 'rgba(255, 255, 255, 0.38)',
   			background: 'hsl(var(--background))',
