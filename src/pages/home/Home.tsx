@@ -1,5 +1,4 @@
 import CustomProgressBar from "@/components/CustomProgressBar";
-import { waterData } from "@/data";
 import {
   Table,
   TableBody,
@@ -8,6 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { InfoProps } from "@/types";
+import { dataFormat } from "@/utils/dataFormat";
+import { useEffect, useState } from "react";
 
 const columns = [
   {
@@ -45,6 +47,16 @@ const columns = [
   },
 ];
 const Home = () => {
+  const [data, setData] = useState<InfoProps[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/root`);
+      const data = await response.json();
+      setData(data);
+    };
+
+    fetchData();
+  }, []);
   return (
     <div className="py-4 px-10">
       <div className="flex justify-between items-center w-full flex-wrap mb-10 gap-3">
@@ -77,29 +89,29 @@ const Home = () => {
           <CustomProgressBar color="#6A9308FF" progress={67.0} />
         </div>
       </div>
-      <div className="h-[calc(100vh-5rem)] flex gap-3">
+      <div className="h-[calc(100vh-5rem)] flex gap-3 mb-12">
         <div className="scrollbar-custom sm:w-[65%] w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 border rounded-[15px] shadow-lg">
           <Table className="rounded-b-[15px] border-collapse min-w-max border-spacing-0 overflow-hidden shadow-sm p-4">
             <TableHeader className="bg-bgDark">
               <TableRow className="shadow-2xl">
                 {columns.map((column) => (
-                  <TableHead className="text-center" key={column.key}>
+                  <TableHead className="text-start py-4 px-2" key={column.key}>
                     {column.title}
                   </TableHead>
                 ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {waterData.map((item, index) => (
+              {data.map((item, index) => (
                 <TableRow
                   className="bg-[#fff] hover:bg-[#F5F6FA]"
-                  key={item.id}
+                  key={item._id}
                 >
-                  <TableCell className="font-medium border-b border-[#E4E6EE] pl-6">
+                  <TableCell className="py-4 font-medium border-b border-[#E4E6EE] pl-6">
                     {index + 1}
                   </TableCell>
                   <TableCell className="border-b border-[#E4E6EE]">
-                    {item.sana}
+                    {dataFormat(item.time)}
                   </TableCell>
                   <TableCell className="border-b border-[#E4E6EE]">
                     {item.chuqurlik}
@@ -133,7 +145,7 @@ const Home = () => {
               </div>
               <div className="flex justify-between text-[#5c5c5c] py-1">
                 <p>Nomi:</p>
-                <p className="">Donyorshayx N16, 9арж</p>
+                <p className="">Yunusobod tumani, Amir Temur ko'chasi</p>
               </div>
               <div className="flex justify-between text-[#5c5c5c] py-1">
                 <p>Telefon:</p>

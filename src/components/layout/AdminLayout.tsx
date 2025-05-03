@@ -7,7 +7,6 @@ import Sidebar from "../admin/Sidebar";
 const AdminLayout = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");

@@ -21,12 +21,12 @@ export default function LoginPage() {
     setError("");
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      if (email === "user@example.com" && password === "password") {
-        navigate("/admin");
+      if (email === "user" && password === "1234") {
+        navigate("/admin/dashboard");
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", "true");
       } else {
-        throw new Error("Invalid credentials");
+        throw new Error("Email yoki parol noto'g'ri");
       }
     } catch (err) {
       if (err instanceof Error) {
