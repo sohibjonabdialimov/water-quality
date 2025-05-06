@@ -43,7 +43,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <Card className="w-full max-w-md shadow-xl">
         <CardContent className="p-6 space-y-6">
-          <h2 className="text-2xl font-bold text-center">Login</h2>
+          <h2 className="text-2xl font-bold text-center">Kirish</h2>
           {error && (
             <div className="text-red-500 bg-red-100 p-2 rounded">{error}</div>
           )}
@@ -55,18 +55,18 @@ export default function LoginPage() {
               value={email}
               autoComplete="off"
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder="Email kiriting..."
             />
           </div>
           <div>
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Parol</Label>
             <div className="relative">
               <Input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Your password"
+                placeholder="Parol kiriting..."
               />
               <button
                 type="button"
@@ -78,7 +78,7 @@ export default function LoginPage() {
             </div>
           </div>
           <Button className="w-full" onClick={handleLogin} disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Kirilmoqda..." : "Kirish"}
           </Button>
         </CardContent>
       </Card>

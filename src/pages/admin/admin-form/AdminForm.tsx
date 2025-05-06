@@ -7,12 +7,9 @@ import { toast } from "@/hooks/use-toast";
 
 export default function AdminForm() {
   const [formData, setFormData] = useState({
-    chuqurlik: "",
-    pH: "",
-    tC: "",
-    eh: "",
+    waterLevel: "",
+    temperature: "",
     tds: "",
-    time: "",
   });
 
   const handleChange = (
@@ -28,12 +25,9 @@ export default function AdminForm() {
     try {
       await axios.post("http://localhost:4000/api/root", {
         ...formData,
-        chuqurlik: parseFloat(formData.chuqurlik),
-        pH: parseFloat(formData.pH),
-        tC: parseFloat(formData.tC),
-        eh: parseFloat(formData.eh),
+        waterLevel: parseFloat(formData.waterLevel),
+        temperature: parseFloat(formData.temperature),
         tds: parseFloat(formData.tds),
-        time: formData.time,
       });
       toast({
         title: "Ma'lumot saqlandi!",
@@ -56,12 +50,9 @@ export default function AdminForm() {
       <h2 className="text-2xl font-bold text-center mb-6">Ma'lumot qo'shish</h2>
 
       {[
-        { label: "Chuqurlik", name: "chuqurlik" },
-        { label: "pH", name: "pH" },
-        { label: "Temperatura", name: "tC" },
-        { label: "Eh", name: "eh" },
-        { label: "TDS", name: "tds" },
-        { label: "Vaqt", name: "time" },
+        { label: "Suv sathi", name: "waterLevel" },
+        { label: "Temperatura", name: "temperature" },
+        { label: "Sho'rlanganligi", name: "tds" },
       ].map((field, idx) => (
         <div key={idx}>
           <Label htmlFor={field.name}>{field.label}</Label>

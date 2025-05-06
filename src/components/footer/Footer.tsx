@@ -15,7 +15,7 @@ const Footer = () => {
           <div className="flex gap-10">
             <div>
               <h4 className="text-white text-[20px] leading-normal font-medium">
-                +998 71 200 00 88
+                +998(97) 636-79-75
               </h4>
               <p className="text-lightColor text-lg font-normal">
                 Telefon raqam

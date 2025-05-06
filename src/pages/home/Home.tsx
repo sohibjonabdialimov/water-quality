@@ -27,23 +27,18 @@ const columns = [
   },
   {
     title: "Suv sathi, (sm)",
-    dataIndex: "chuqurlik",
-    key: "chuqurlik",
+    dataIndex: "waterLevel",
+    key: "waterLevel",
   },
   {
     title: <p>Temperatura, (0&#176;C)</p>,
-    dataIndex: "tC",
-    key: "tC",
+    dataIndex: "temperature",
+    key: "temperature",
   },
   {
     title: "Sho'rlanganligi, (TDS)",
     dataIndex: "tds",
     key: "tds",
-  },
-  {
-    title: "Eh",
-    dataIndex: "eh",
-    key: "eh",
   },
 ];
 const Home = () => {
@@ -62,31 +57,24 @@ const Home = () => {
       <div className="flex justify-between items-center w-full flex-wrap mb-10 gap-3">
         <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
           <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-            Temperatura
+            Temperatura(0&#176;C)
           </h3>
           <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
           <CustomProgressBar color="#6BB2D7FF" progress={50} />
         </div>
         <div className="flex-auto shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg pt-4">
           <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-            Suv sathi
+            Suv sathi(sm)
           </h3>
           <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
           <CustomProgressBar color="#00FF00FF" progress={90.3} />
         </div>
         <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
           <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-            Sho'rlanganligi
+            Sho'rlanganligi(TDS)
           </h3>
           <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
           <CustomProgressBar color="#82A6F6FF" progress={45.5} />
-        </div>
-        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
-          <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-            Ishqor miqdori
-          </h3>
-          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
-          <CustomProgressBar color="#6A9308FF" progress={67.0} />
         </div>
       </div>
       <div className="h-[calc(100vh-5rem)] flex gap-3 mb-12">
@@ -111,19 +99,16 @@ const Home = () => {
                     {index + 1}
                   </TableCell>
                   <TableCell className="border-b border-[#E4E6EE]">
-                    {dataFormat(item.time)}
+                    {dataFormat(item.createdAt)}
                   </TableCell>
                   <TableCell className="border-b border-[#E4E6EE]">
-                    {item.chuqurlik}
+                    {item.waterLevel}
                   </TableCell>
                   <TableCell className="border-b border-[#E4E6EE]">
-                    {item.tC}
+                    {item.temperature}
                   </TableCell>
                   <TableCell className="border-b border-[#E4E6EE]">
                     {item.tds}
-                  </TableCell>
-                  <TableCell className="border-b border-[#E4E6EE]">
-                    {item.eh}
                   </TableCell>
                 </TableRow>
               ))}
@@ -149,15 +134,7 @@ const Home = () => {
               </div>
               <div className="flex justify-between text-[#5c5c5c] py-1">
                 <p>Telefon:</p>
-                <p className="">+998(91) 788-17-77</p>
-              </div>
-              <div className="flex justify-between text-[#5c5c5c] py-1">
-                <p>Kadastr raqami:</p>
-                <p className="">1710137</p>
-              </div>
-              <div className="flex justify-between text-[#5c5c5c] py-1">
-                <p>Chuqurlik sensori:</p>
-                <p className="">11.65</p>
+                <p className="">+998(97) 636-79-75</p>
               </div>
             </div>
             <div className="px-3 border-b-[1px] border-[#b3b3b3]">
@@ -167,15 +144,16 @@ const Home = () => {
               </div>
             </div>
             <div className="px-3">
-              <div className="py-1 flex justify-between text-[#5c5c5c]">
+              <div className="py-1 flex justify-between text-[#5c5c5c] gap-2">
                 <p>Dastur nomi:</p>
-                <p className="">
-                  Gidrogeokimyoviy parametrlarini o‘lchov qurilmasi
+                <p className="flex-1">
+                  IoT asosida yer osti suv sathi va sifat ko‘rsatgichlarini
+                  monitoring qilish
                 </p>
               </div>
               <div className="py-1 flex justify-between text-[#5c5c5c]">
                 <p>Dastur versiyasi:</p>
-                <p className="">5.6.12</p>
+                <p className="">1.0.0</p>
               </div>
             </div>
           </div>
@@ -184,7 +162,7 @@ const Home = () => {
             style={{ position: "relative", overflow: "hidden" }}
           >
             <a
-              href="https://yandex.uz/maps?utm_medium=mapframe&utm_source=maps"
+              href="https://yandex.uz/maps/org/181817256792/?utm_medium=mapframe&utm_source=maps"
               style={{
                 color: "#eee",
                 fontSize: 12,
@@ -192,10 +170,11 @@ const Home = () => {
                 top: 0,
               }}
             >
-              Yandex&nbsp;Xarita
+              Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari
+              universiteti
             </a>
             <a
-              href="https://yandex.uz/maps/geo/4040491070/?ll=66.972087%2C39.177573&utm_medium=mapframe&utm_source=maps&z=14.78"
+              href="https://yandex.uz/maps/10335/tashkent/category/university/184106140/?utm_medium=mapframe&utm_source=maps"
               style={{
                 color: "#eee",
                 fontSize: 12,
@@ -203,14 +182,13 @@ const Home = () => {
                 top: 14,
               }}
             >
-              Doniyorshayx aholi punkti — Yandex&nbsp;Xarita
+              OO‘Yu Toshkentda
             </a>
             <iframe
-              src="https://yandex.uz/map-widget/v1/?ll=66.972087%2C39.177573&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgo0MDQwNDkxMDcwEktPyrt6YmVraXN0b24sIFFhc2hxYWRhcnlvIHZpbG95YXRpLCBLaXRvYiB0dW1hbmksIERvbml5b3JzaGF5eCBhaG9saSBwdW5rdGkiCg1t8oVCFR-3HEI%2C&z=14.78"
-              width="100%"
-              height={"100%"}
+              src="https://yandex.uz/map-widget/v1/org/181817256792/?ll=69.286834%2C41.340865&z=16"
+              width={560}
+              height={400}
               frameBorder={1}
-              allowFullScreen={true}
               style={{ position: "relative" }}
             />
           </div>

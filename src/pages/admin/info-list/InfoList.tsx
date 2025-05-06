@@ -21,30 +21,25 @@ const columns = [
   },
   {
     title: "O'lchangan vaqti",
-    dataIndex: "time",
-    key: "time",
+    dataIndex: "createdAt",
+    key: "createdAt",
     render: (text: string) => <a>{text}</a>,
     width: "15%",
   },
   {
     title: "Suv sathi, (sm)",
-    dataIndex: "chuqurlik",
-    key: "chuqurlik",
+    dataIndex: "waterLevel",
+    key: "waterLevel",
   },
   {
     title: <p>Temperatura, (0&#176;C)</p>,
-    dataIndex: "tC",
-    key: "tC",
+    dataIndex: "temperature",
+    key: "temperature",
   },
   {
     title: "Sho'rlanganligi, (TDS)",
     dataIndex: "tds",
     key: "tds",
-  },
-  {
-    title: "Eh",
-    dataIndex: "eh",
-    key: "eh",
   },
   {
     title: "Amallar",
@@ -64,7 +59,6 @@ const InfoList = () => {
       </div>
     );
   if (isError) return <div>Error fetching data</div>;
-  console.log(data);
 
   return (
     <div>
@@ -85,19 +79,16 @@ const InfoList = () => {
                 {index + 1}
               </TableCell>
               <TableCell className="border-b border-[#E4E6EE]">
-                {dataFormat(item.time)}
+                {dataFormat(item.createdAt)}
               </TableCell>
               <TableCell className="border-b border-[#E4E6EE]">
-                {item.chuqurlik}
+                {item.waterLevel}
               </TableCell>
               <TableCell className="border-b border-[#E4E6EE]">
-                {item.tC}
+                {item.temperature}
               </TableCell>
               <TableCell className="border-b border-[#E4E6EE]">
                 {item.tds}
-              </TableCell>
-              <TableCell className="border-b border-[#E4E6EE]">
-                {item.eh}
               </TableCell>
               <TableCell className="border-b border-[#E4E6EE]">
                 <ActionButtons refetch={refetch} item={item} />

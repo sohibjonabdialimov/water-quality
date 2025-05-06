@@ -14,7 +14,7 @@ const Header = () => {
         <ul className="flex gap-4 items-center text-textDark">
           <Button className="h-[40px] rounded-[10px]">
             <Link className="text-sm" to={"/login"}>
-              Kirish
+              Ma'lumot qo'shish
             </Link>
           </Button>
         </ul>

@@ -71,18 +71,18 @@ export const ActionButtons = ({
           <div className="space-y-4 mt-2">
             <input
               type="number"
-              value={formData.chuqurlik}
+              value={formData.waterLevel}
               onChange={(e) =>
-                setFormData({ ...formData, chuqurlik: +e.target.value })
+                setFormData({ ...formData, waterLevel: e.target.value })
               }
-              placeholder="Chuqurlik"
+              placeholder="Suv sathi"
               className="w-full border rounded p-2"
             />
             <input
               type="number"
-              value={formData.tC}
+              value={formData.temperature}
               onChange={(e) =>
-                setFormData({ ...formData, tC: +e.target.value })
+                setFormData({ ...formData, temperature: e.target.value })
               }
               placeholder="Temperatura"
               className="w-full border rounded p-2"
@@ -91,18 +91,9 @@ export const ActionButtons = ({
               type="number"
               value={formData.tds}
               onChange={(e) =>
-                setFormData({ ...formData, tds: +e.target.value })
+                setFormData({ ...formData, tds: e.target.value })
               }
-              placeholder="TDS"
-              className="w-full border rounded p-2"
-            />
-            <input
-              type="number"
-              value={formData.eh}
-              onChange={(e) =>
-                setFormData({ ...formData, eh: +e.target.value })
-              }
-              placeholder="Eh"
+              placeholder="Sho'rlanganligi"
               className="w-full border rounded p-2"
             />
             <Button onClick={handleUpdate} className="w-full">
@@ -126,7 +117,9 @@ export const ActionButtons = ({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Bekor qilish</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>Ha, o‘chirish</AlertDialogAction>
+            <AlertDialogAction onClick={handleDelete}>
+              Ha, o‘chirish
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

@@ -6,9 +6,9 @@ export interface ModalProps {
 
 export interface InfoProps {
   _id: string;
-  time: string;
-  chuqurlik: number;
-  tC: number;
-  tds: number;
-  eh: number;
+  temperature: string;
+  tds: string;
+  waterLevel: string;
+  createdAt: string;
+  updatedAt: string;
 }
