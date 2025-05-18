@@ -1,4 +1,7 @@
-import CustomProgressBar from "@/components/CustomProgressBar";
+import BarChart from "@/components/BarChart";
+import MultiLineChart from "@/components/MultiLineChart";
+import TemperatureChart from "@/components/TemperatureChart";
+import TemperatureVsTDSChart from "@/components/TemperatureVsTDSChart";
 import {
   Table,
   TableBody,
@@ -36,47 +39,97 @@ const columns = [
     key: "temperature",
   },
   {
-    title: "Sho'rlanganligi, (TDS)",
+    title: "Sho'rlanganligi, (ppm)",
     dataIndex: "tds",
     key: "tds",
   },
 ];
+
+interface DataPoint {
+  time: string;
+  temperature: number;
+  tds: number;
+  waterLevel: number;
+}
 const Home = () => {
   const [data, setData] = useState<InfoProps[]>([]);
+  const [tempData, setTempData] = useState<
+    { time: string; temperature: number }[]
+  >([]);
+  const [barData, setBarData] = useState<DataPoint[]>([]);
+  const [chartData, setChartData] = useState<DataPoint[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/root`);
       const data = await response.json();
       setData(data);
+      setTempData(
+        data.map((item: InfoProps) => ({
+          time: item.createdAt,
+          temperature: +item.temperature,
+        }))
+      );
+      setBarData(
+        data.map((item: InfoProps) => ({
+          time: item.createdAt,
+          temperature: +item.temperature,
+          tds: +(+item.tds / 10).toFixed(2),
+          waterLevel: +item.waterLevel,
+        }))
+      );
+      setChartData(
+        data.map((item: InfoProps) => ({
+          temperature: +item.temperature,
+          tds: +(+item.tds / 10).toFixed(2),
+        }))
+      );
     };
-
     fetchData();
   }, []);
+  console.log(barData);
   return (
     <div className="py-4 px-10">
       <div className="flex justify-between items-center w-full flex-wrap mb-10 gap-3">
-        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
+        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] py-6">
           <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-            Temperatura(0&#176;C)
+            O'rtacha temperatura <span className="uppercase"> (&#176;C)</span>
           </h3>
-          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
-          <CustomProgressBar color="#6BB2D7FF" progress={50} />
+          <p className="text-3xl text-[#757575FF] font-bold">
+            {(
+              data.reduce((acc, curr) => acc + +curr.temperature, 0) /
+              data.length
+            ).toFixed(2)}
+          </p>
+          {/* <CustomProgressBar color="#6BB2D7FF" progress={+(data.reduce((acc, curr) => acc + +curr.temperature, 0) / data.length).toFixed(2)} /> */}
         </div>
-        <div className="flex-auto shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg pt-4">
+        <div className="flex-auto shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg py-6">
           <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-            Suv sathi(sm)
+            Suv sathi <span className="lowercase"> (sm)</span>
           </h3>
-          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
-          <CustomProgressBar color="#00FF00FF" progress={90.3} />
+          <p className="text-3xl text-[#757575FF] font-bold">
+            {(
+              data.reduce((acc, curr) => acc + +curr.waterLevel, 0) /
+              data.length
+            ).toFixed(2)}
+          </p>
+          {/* <CustomProgressBar color="#00FF00FF" progress={90.3} /> */}
         </div>
-        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
+        <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] py-6">
           <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-            Sho'rlanganligi(TDS)
+            Sho'rlanganligi <span className="lowercase"> (ppm)</span>
           </h3>
-          <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
-          <CustomProgressBar color="#82A6F6FF" progress={45.5} />
+          <p className="text-3xl text-[#757575FF] font-bold">
+            {(
+              data.reduce((acc, curr) => acc + +curr.tds, 0) / data.length
+            ).toFixed(2)}
+          </p>
+          {/* <CustomProgressBar color="#82A6F6FF" progress={45.5} /> */}
         </div>
       </div>
+      <TemperatureChart data={tempData || []} />
+      <BarChart data={barData || []} />
+      <MultiLineChart data={barData || []} />
+      <TemperatureVsTDSChart data={chartData || []} />
       <div className="h-[calc(100vh-5rem)] flex gap-3 mb-12">
         <div className="scrollbar-custom sm:w-[65%] w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 border rounded-[15px] shadow-lg">
           <Table className="rounded-b-[15px] border-collapse min-w-max border-spacing-0 overflow-hidden shadow-sm p-4">

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@highcharts/map-collection": "^2.3.0",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.11",
@@ -24,6 +25,8 @@
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "highcharts": "^12.2.0",
+    "highcharts-react-official": "^3.2.2",
     "lucide": "^0.487.0",
     "lucide-react": "^0.487.0",
     "react": "^19.0.0",

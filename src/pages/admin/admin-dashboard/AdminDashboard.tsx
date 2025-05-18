@@ -19,7 +19,7 @@ const AdminDashboard = () => {
       </div>
       <div className="flex-auto h-[8rem] flex items-center flex-col justify-between text-center bg-[#fff] rounded-lg shadow-[0px_4px_10px_3px_rgba(0,0,0,0.1)] pt-4">
         <h3 className="text-[#a8a8a8] uppercase text-base font-semibold">
-          Sho'rlanganligi(TDS)
+          Sho'rlanganligi(ppm)
         </h3>
         <p className="text-2xl text-[#757575FF] font-bold">18.6</p>
         <CustomProgressBar color="#82A6F6FF" progress={45.5} />
