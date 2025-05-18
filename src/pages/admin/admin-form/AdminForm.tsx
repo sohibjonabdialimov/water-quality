@@ -29,6 +29,11 @@ export default function AdminForm() {
         temperature: parseFloat(formData.temperature),
         tds: parseFloat(formData.tds),
       });
+      setFormData({
+        waterLevel: "",
+        temperature: "",
+        tds: "",
+      });
       toast({
         title: "Ma'lumot saqlandi!",
         description: "Ma'lumot saqlandi!",

@@ -86,7 +86,6 @@ const Home = () => {
     };
     fetchData();
   }, []);
-  console.log(barData);
   return (
     <div className="py-4 px-10">
       <div className="flex justify-between items-center w-full flex-wrap mb-10 gap-3">
@@ -126,10 +125,18 @@ const Home = () => {
           {/* <CustomProgressBar color="#82A6F6FF" progress={45.5} /> */}
         </div>
       </div>
+      <div className="mb-10">
       <TemperatureChart data={tempData || []} />
-      <BarChart data={barData || []} />
-      <MultiLineChart data={barData || []} />
-      <TemperatureVsTDSChart data={chartData || []} />
+      </div>
+      <div className="mb-10">
+        <BarChart data={barData || []} />
+      </div>
+      <div className="mb-10">
+        <MultiLineChart data={barData || []} />
+      </div>
+      <div className="mb-10">
+        <TemperatureVsTDSChart data={chartData || []} />
+      </div>
       <div className="h-[calc(100vh-5rem)] flex gap-3 mb-12">
         <div className="scrollbar-custom sm:w-[65%] w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 border rounded-[15px] shadow-lg">
           <Table className="rounded-b-[15px] border-collapse min-w-max border-spacing-0 overflow-hidden shadow-sm p-4">
